@@ -18,6 +18,19 @@ namespace CatBot.Modules
             _embed = new EmbedBuilder();
         }
 
+        #region pingCommands
+        [Command("ping")]
+        [RequireBotPermission(GuildPermission.EmbedLinks, ErrorMessage = "Не могу узнать пинг, так как нету права ***{embed_links}***")]
+        public async Task PingAsync()
+        {
+            _embed.WithTitle($"Информация о пинге для {Context.User.Username}");
+            _embed.WithDescription($"{Context.Client.Latency} мс");
+            _embed.WithColor(new Color(187, 78, 93));
+            await ReplyAsync("", false, _embed.Build());
+        }
+        #endregion
+
+        #region prefix
         [RequireBotPermission(GuildPermission.EmbedLinks, ErrorMessage = "Не могу изменить префикс, так как нету права ***{embed_links}***")]
         [RequireBotPermission(GuildPermission.SendMessages, ErrorMessage = "Не могу писать сообщения, так как нету права ***{send_messages}***")]
         [RequireUserPermission(GuildPermission.Administrator, ErrorMessage = "Чтобы пользоваться этой командой, нужно иметь права **администратора**!")]
@@ -61,5 +74,6 @@ namespace CatBot.Modules
             //отправка ответа
             await ReplyAsync(embed: _embed.Build()).ConfigureAwait(false);
         }
+        #endregion
     }
 }

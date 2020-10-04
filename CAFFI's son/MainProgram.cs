@@ -25,7 +25,7 @@ namespace CatBot
         public async Task MainAsync()
         {
             Console.WriteLine("Нажми Ctrl + C или закрой это окно чтобы закрыть бота");
-            Console.Title = "Gachi v1.0.0-pre_alpha2 Client";
+            Console.Title = "Gachi v1.0.0-pre_alpha4 Client";
 
             //инициализация всего
             discord = new DiscordSocketClient(new DiscordSocketConfig

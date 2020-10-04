@@ -2273,11 +2273,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lolho\\source\\repos\\CAFFI's son\\CAFFI's son\\CatBot.csproj",
+      "projectUniqueName": "C:\\Users\\lolho\\source\\repos\\GachiBot\\CAFFI's son\\CatBot.csproj",
       "projectName": "CatBot",
-      "projectPath": "C:\\Users\\lolho\\source\\repos\\CAFFI's son\\CAFFI's son\\CatBot.csproj",
+      "projectPath": "C:\\Users\\lolho\\source\\repos\\GachiBot\\CAFFI's son\\CatBot.csproj",
       "packagesPath": "C:\\Users\\lolho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lolho\\source\\repos\\CAFFI's son\\CAFFI's son\\obj\\",
+      "outputPath": "C:\\Users\\lolho\\source\\repos\\GachiBot\\CAFFI's son\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

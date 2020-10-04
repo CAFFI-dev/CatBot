@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CAFFI_s_son
+namespace CatBot
 {
-    class DataConstants
+    public static class DataConstants
     {
         public const string Prefix = "!";
 
-        public const string OwnerUsername = "Brammys#0001";
+        public const string OwnerUsername = "CAFFI#3198";
     }
 }

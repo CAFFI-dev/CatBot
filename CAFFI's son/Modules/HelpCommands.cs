@@ -23,9 +23,10 @@ namespace CatBot.Modules
             if (command == null)
             {
                 //начинаем создание embed
-                //_embed.
-                ////отправка ответа
-                //await ReplyAsync(embed: embed);
+                Embed embed = _embed.Build();
+                //отправка ответа
+                await ReplyAsync($"Команда в разработке, будет сделана после реализации банов, киков, мутов и разбанов \n" +
+                    $"Доступные команды: -help, -ban, -kick, -random, -unban, -привет, -возраст, -ping, -prefix(в разработке), -gachicide(в разработке)");
             }
         }
     }
