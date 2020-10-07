@@ -200,5 +200,11 @@ namespace CatBot.Modules
             await ReplyAsync(embed: embed);
         }
         #endregion
+
+        [Command("nickname set")]
+        public async Task SetNickname(IGuildUser user)
+        {
+            await ReplyAsync("В разработке");
+        }
     }
 }

@@ -26,7 +26,8 @@ namespace CatBot.Modules
                 Embed embed = _embed.Build();
                 //отправка ответа
                 await ReplyAsync($"Команда в разработке, будет сделана после реализации банов, киков, мутов и разбанов \n" +
-                    $"Доступные команды: -help, -ban, -kick, -random, -unban, -привет, -возраст, -ping, -prefix(в разработке), -gachicide(в разработке)");
+                    $"Доступные команды: -help, -ban, -kick, -random, -unban, -привет, -возраст, -ping, -prefix(в разработке), -gachicide(в разработке), -profile nickname(на себя, для всех)" +
+                    $"\n -set nickname (для админов, можно менять всем)");
             }
         }
     }
