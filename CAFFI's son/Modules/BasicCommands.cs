@@ -11,7 +11,7 @@ namespace CatBot.Modules
 {
     public class BasicCommands : ModuleBase<SocketCommandContext>
     {
-        private EmbedBuilder _embed;
+        private readonly EmbedBuilder _embed;
 
         public BasicCommands()
         {
@@ -41,7 +41,15 @@ namespace CatBot.Modules
         [Command("gachicide"), Alias("suicide")]
         [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "**Ошибка:** данный бот не может кикнуть, пока у него нет права ***{kick_members}***")]
         public async Task Suicide() {
-            //User.Username.KickAsync("Перестал слушать гачи");
+            //задел на будущее
+            ulong userId = Context.User.Id;
+            IUser user = Context.Client.GetUser(userId);
+
+            _embed.WithTitle($"{Context.User.Username} ебнулся(");
+            _embed.WithDescription($"{Context.User.Mention} перестал слушать гачи! \n Он начал смотреть аниме((ы9ывложыволщдэывдол");
+            Embed embed = _embed.Build();
+
+            await ReplyAsync(embed: embed);
         }
 
         #region kick'n ban commands

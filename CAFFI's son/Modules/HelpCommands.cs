@@ -11,7 +11,7 @@ namespace CatBot.Modules
 {
     public class HelpCommands : ModuleBase<SocketCommandContext>
     {
-        private EmbedBuilder _embed; //постройка embed ссылок
+        private readonly EmbedBuilder _embed; //постройка embed ссылок
 
         public HelpCommands()
         {
@@ -27,7 +27,7 @@ namespace CatBot.Modules
                 //отправка ответа
                 await ReplyAsync($"Команда в разработке, будет сделана после реализации банов, киков, мутов и разбанов \n" +
                     $"Доступные команды: -help, -ban, -kick, -random, -unban, -привет, -возраст, -ping, -prefix(в разработке), -gachicide(в разработке), -profile nickname(на себя, для всех)" +
-                    $"\n -set nickname (для админов, можно менять всем)");
+                    $"\n -set nickname (для админов, можно менять всем), -profile info(информация о профиле)");
             }
         }
     }

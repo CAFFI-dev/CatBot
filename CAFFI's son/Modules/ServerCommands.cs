@@ -11,7 +11,7 @@ namespace CatBot.Modules
 {
     public class ServerCommands : ModuleBase<SocketCommandContext>
     {
-        private EmbedBuilder _embed; //постройка embed ссылок
+        private readonly EmbedBuilder _embed; //постройка embed ссылок
 
         public ServerCommands()
         {

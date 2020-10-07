@@ -9,5 +9,7 @@ namespace CatBot
         public const string Prefix = "!";
 
         public const string OwnerUsername = "CAFFI#3198";
+
+        public const ulong OwnerId = 368702520937283584;
     }
 }
