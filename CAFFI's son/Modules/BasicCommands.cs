@@ -17,6 +17,7 @@ namespace CatBot.Modules
         {
             _embed = new EmbedBuilder(); //постройка embed-ссылок
         }
+
         [Command("поприветствуй"), Alias("скажипривет", "привет", "дарова", "ку", "здравствуй", "пивет")]
         public async Task Hello([Remainder] IGuildUser user = null)
         {

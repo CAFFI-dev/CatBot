@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using Discord.Rest;
-using Discord.WebSocket;
+
+using CatBot.Preconditions;
 namespace CatBot.Modules
 {
     public class ServerCommands : ModuleBase<SocketCommandContext>
@@ -20,6 +20,7 @@ namespace CatBot.Modules
 
         #region pingCommands
         [Command("ping")]
+        [MinPermissions(PermissionLevel.ServerMod)]
         [RequireBotPermission(GuildPermission.EmbedLinks, ErrorMessage = "Не могу узнать пинг, так как нету права ***{embed_links}***")]
         public async Task PingAsync()
         {

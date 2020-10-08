@@ -1,4 +1,5 @@
-﻿using System;
+﻿//thanks for MythicalCuddles, his template repository helped me to do UserExtensions.cs
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -37,6 +38,49 @@ namespace CatBot.Extensions
         }
         //to do
         //joindate createdate
+        #endregion
+
+        #region Permission Comparing
+        public static int GetUserPermissionLevel(this SocketGuildUser user)
+        {
+            if (user.IsBotOwner())
+            {
+                return 10;
+            }
+
+            if (user.IsTeamMember())
+            {
+                return 9;
+            }
+
+            if (user.IsBot)
+            {
+                return 8;
+            }
+
+            if (user.IsGuildOwner(user.Guild))
+            {
+                return 7;
+            }
+
+            if (user.IsGuildAdministrator())
+            {
+                return 6;
+            }
+
+            if (user.IsGuildModerator())
+            {
+                return 5;
+            }
+
+            return 1;
+        }
+
+        public static bool HasHigherPermissionLevel(this IUser contextUser, IUser userMentioned)
+        {
+            return ((contextUser as SocketGuildUser).GetUserPermissionLevel() >=
+                (userMentioned as SocketGuildUser).GetUserPermissionLevel());
+        }
         #endregion
     }
 }
