@@ -16,7 +16,7 @@ namespace CatBot
        => new MainProgram().MainAsync().GetAwaiter().GetResult();
         //я заебался 2x - вечно все переделываю
         private static DiscordSocketClient discord;
-        private static CommandService commands;
+        public static CommandService commands;
         private static IServiceProvider services;
         /// <summary>
         /// Стартовая точка приложения

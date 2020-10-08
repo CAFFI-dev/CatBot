@@ -9,6 +9,7 @@ using Discord.Rest;
 using Discord.WebSocket;
 namespace CatBot.Modules
 {
+    [Name("basic")]
     public class BasicCommands : ModuleBase<SocketCommandContext>
     {
         private readonly EmbedBuilder _embed;
@@ -19,12 +20,14 @@ namespace CatBot.Modules
         }
 
         [Command("поприветствуй"), Alias("скажипривет", "привет", "дарова", "ку", "здравствуй", "пивет")]
+        [Summary("Поприветствуй кого-нибудь (а можешь и послать нахуй)!")]
         public async Task Hello([Remainder] IGuildUser user = null)
         {
             if (user == null) await ReplyAsync($"Дарова ебать, {user.Mention}");
             else await ReplyAsync($"Дарова ебать, {Context.User.Mention}");
         }
 
+        [Summary("Определяет рандомное число в зависимости от параметров")]
         [Command("рандом"), Alias("random")]
         public async Task Random(int min, int max)
         {
@@ -32,6 +35,7 @@ namespace CatBot.Modules
             await ReplyAsync($":game_die: Рандомное число: {rnd.Next(min, max + 1)}");
         }
 
+        [Summary("Определяет дату создания вашего аккаунта")]
         [Command("возраст"), Alias("age")]
         public async Task Age([Remainder] IGuildUser user = null)
         {
@@ -39,6 +43,7 @@ namespace CatBot.Modules
             else await ReplyAsync($"Аккаунт этого дебила был создан {user.CreatedAt}");
         }
 
+        [Summary("Сделать суицид - в будущем будет кикать вас из сервера")]
         [Command("gachicide"), Alias("suicide")]
         [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "**Ошибка:** данный бот не может кикнуть, пока у него нет права ***{kick_members}***")]
         public async Task Suicide() {
@@ -54,6 +59,7 @@ namespace CatBot.Modules
         }
 
         #region kick'n ban commands
+        [Summary("Бан-хаммер ебать, чтобы дать по рожам дебилам")]
         [Command("ban")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "**Ошибка:** данный бот не может банить, пока у него нет права ***{ban_members}***")]
         [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "Да ты еблан, пробовать банить участника без наличия этого права! (нужен ***{ban_members}***")]
@@ -108,6 +114,7 @@ namespace CatBot.Modules
             await ReplyAsync(embed: embed);
         }
 
+        [Summary("Разбанить кого-нибудь если он признал свою вину")]
         [Command("unban")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "**Ошибка:** данный бот не может разбанить участника" +
             ", пока у него нет права ***{ban_members}***")]
@@ -149,6 +156,7 @@ namespace CatBot.Modules
             await ReplyAsync(embed: embed);
         }
 
+        [Summary("Кикни нахуй дебила")]
         [Command("kick")]
         [RequireBotPermission(GuildPermission.KickMembers, ErrorMessage = "**Ошибка:** данный бот не может кикнуть участника" +
             ", пока у него нет права ***{kick_members}***")]
@@ -210,6 +218,7 @@ namespace CatBot.Modules
         }
         #endregion
 
+        [Summary("в разработке ебать")]
         [Command("nickname set")]
         public async Task SetNickname(IGuildUser user)
         {

@@ -9,6 +9,7 @@ using Discord.Commands;
 using CatBot.Preconditions;
 namespace CatBot.Modules
 {
+    [Name("server")]
     public class ServerCommands : ModuleBase<SocketCommandContext>
     {
         private readonly EmbedBuilder _embed; //постройка embed ссылок
@@ -20,6 +21,7 @@ namespace CatBot.Modules
 
         #region pingCommands
         [Command("ping")]
+        [Summary("Определяет ping между ботом и дискорд сервером.")]
         [MinPermissions(PermissionLevel.ServerMod)]
         [RequireBotPermission(GuildPermission.EmbedLinks, ErrorMessage = "Не могу узнать пинг, так как нету права ***{embed_links}***")]
         public async Task PingAsync()
@@ -35,6 +37,7 @@ namespace CatBot.Modules
         [RequireBotPermission(GuildPermission.EmbedLinks, ErrorMessage = "Не могу изменить префикс, так как нету права ***{embed_links}***")]
         [RequireBotPermission(GuildPermission.SendMessages, ErrorMessage = "Не могу писать сообщения, так как нету права ***{send_messages}***")]
         [RequireUserPermission(GuildPermission.Administrator, ErrorMessage = "Чтобы пользоваться этой командой, нужно иметь права **администратора**!")]
+        [Summary("Изменяет глобальный префикс сервера (добавлю когда будет готова дб)")]
         [Command("prefix"), Alias("addprefix", "mdprefix")]
         public async Task SetPrefixAsync([Remainder] string prefix = null)
         {
@@ -60,6 +63,7 @@ namespace CatBot.Modules
         [RequireBotPermission(GuildPermission.EmbedLinks, ErrorMessage = "Не могу изменить префикс, так как нету права ***{embed_links}***")]
         [RequireBotPermission(GuildPermission.SendMessages, ErrorMessage = "Не могу писать сообщения, так как нету права ***{send_messages}***")]
         [RequireUserPermission(GuildPermission.Administrator, ErrorMessage = "Чтобы пользоваться этой командой, нужно иметь права **администратора**!")]
+        [Summary("Ставит стандартный префикс бота")]
         [Command("defaultprefix"), Alias("removeprefix", "rmprefix")]
         public async Task ClearPrefixAsync()
         {
