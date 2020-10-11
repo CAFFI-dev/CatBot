@@ -14,13 +14,13 @@ namespace CatBot.Modules
         [Name("profile")]
         public class EditProfile : ModuleBase<SocketCommandContext>
         {
-            [Command("info")]
+            [Command("profile info")]
             public async Task InfoSyntax()
             {
                 await ReplyAsync("в разработке");
             }
 
-            [Command("nickname")]
+            [Command("profile nickname")]
             public async Task ChangeNickname()
             {
 

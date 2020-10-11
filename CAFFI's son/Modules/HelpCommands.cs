@@ -80,18 +80,26 @@ namespace CatBot.Modules
                 }
 
                 _embed.WithColor(000, 255, 000);
-                _embed.WithTitle($"Команды, похожие на: ** {postcommand} ** ");
+                _embed.WithTitle($"Команды, похожие на `{postcommand}` ");
 
                 foreach (var match in result.Commands)
                 {
                     var cmd = match.Command;
 
+                    List<string> listCommands = new List<string>();
+                    listCommands = cmd.Aliases.ToList();
+
+                    for(int i = 0; i< listCommands.Count(); i++)
+                    {
+                        listCommands[i] = $"`{listCommands[i]}`";
+                    }
+
                     _embed.AddField(field =>
                     {
-                        field.Name = string.Join(", ", cmd.Aliases);
-                        field.Value = $"Описание: {cmd.Summary} \n" +
-                        $"Параметры: {string.Join(", ", cmd.Parameters.Select(p => p.Name))}\n" +
-                        $"Ремарки dev: {cmd.Remarks}";
+                        field.Name = string.Join(", ", listCommands);
+                        field.Value = $"**Описание**: {cmd.Summary} \n" +
+                        $"**Параметры**: {string.Join(", ", cmd.Parameters.Select(p => p.Name))}\n" +
+                        $"**Ремарки**: dev {cmd.Remarks}";
                         field.IsInline = false;
                     });
                 }
