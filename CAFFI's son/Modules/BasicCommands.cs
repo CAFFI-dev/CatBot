@@ -23,8 +23,8 @@ namespace CatBot.Modules
         [Summary("Поприветствуй кого-нибудь (а можешь и послать нахуй)!")]
         public async Task Hello([Remainder] IGuildUser user = null)
         {
-            if (user == null) await ReplyAsync($"Дарова ебать, {user.Mention}");
-            else await ReplyAsync($"Дарова ебать, {Context.User.Mention}");
+            if (user == null) await ReplyAsync($"Дарова ебать, {Context.User.Mention}");
+            else await ReplyAsync($"Дарова ебать, {user.Mention}");
         }
 
         [Summary("Определяет рандомное число в зависимости от параметров")]

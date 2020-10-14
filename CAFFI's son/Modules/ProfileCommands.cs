@@ -23,7 +23,7 @@ namespace CatBot.Modules
             [Command("profile nickname")]
             public async Task ChangeNickname()
             {
-
+                await ReplyAsync("пиздец в какой разработке");
             }
         }
     }

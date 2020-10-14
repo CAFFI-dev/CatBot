@@ -80,5 +80,52 @@ namespace CatBot.Modules
             await ReplyAsync(embed: _embed.Build()).ConfigureAwait(false);
         }
         #endregion
+
+        [MinPermissions(PermissionLevel.User)]
+        [Summary("Информация об создателе бота")]
+        [Command("about"), Alias("author")]
+        public async Task AboutCommand()
+        {
+            //базовая команда, сделать специальный атрибут в будущем для этого
+            string url = Context.User.GetAvatarUrl();
+            if (url == null) url = Context.User.GetDefaultAvatarUrl();
+            _embed.WithFooter(footer =>
+            {
+                footer
+                .WithIconUrl(url)
+                .WithText($"Вызвано {Context.User.Username}");
+            });
+            _embed.WithCurrentTimestamp();
+            //
+            _embed.WithTitle("Информация о боссе: ");
+            _embed.AddField(field =>
+            {
+                field.Name = "**Создатель: **";
+                field.Value = DataConstants.OwnerUsername;
+
+            });
+
+            _embed.AddField(field =>
+            {
+                field.Name = "**Id создателя: **";
+                field.Value = DataConstants.OwnerId;
+            });
+
+            _embed.AddField(field =>
+            {
+                field.Name = "**Префикс: **";
+                field.Value = DataConstants.Prefix;
+            });
+
+            _embed.AddField(field =>
+            {
+                field.Name = "**Версия: **";
+                field.Value = DataConstants.Version;
+            });
+
+            Embed embed = _embed.Build();
+
+            await ReplyAsync(embed: embed);
+        }
     }
 }

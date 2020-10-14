@@ -14,10 +14,13 @@ namespace CatBot
     {
         public static void Main(string[] args)
        => new MainProgram().MainAsync().GetAwaiter().GetResult();
+
+
         //я заебался 2x - вечно все переделываю
         private static DiscordSocketClient discord;
         public static CommandService commands;
         private static IServiceProvider services;
+
         /// <summary>
         /// Стартовая точка приложения
         /// </summary>
@@ -25,7 +28,7 @@ namespace CatBot
         public async Task MainAsync()
         {
             Console.WriteLine("Нажми Ctrl + C или закрой это окно чтобы закрыть бота");
-            Console.Title = "Gachi v1.0.0-pre_alpha5 Client";
+            Console.Title = DataConstants.Version + " client";
 
             //инициализация всего
             discord = new DiscordSocketClient(new DiscordSocketConfig
@@ -38,8 +41,7 @@ namespace CatBot
                 .AddSingleton(discord)
                 .AddSingleton(commands)
                 .BuildServiceProvider();
-            var token = File.ReadAllText("token.txt");
-
+            var token = ReadFiles();
             discord.Log += DiscordLog;
             //регистрация команд
             await RegisterCommandsAsync();
@@ -54,11 +56,24 @@ namespace CatBot
                 Console.WriteLine("Бот присоединен!");
                 return Task.CompletedTask;
             };
+            //удалить - не работает
+            await CatBot.Database.DBConnection.InitializeComponent().ConfigureAwait(true);
 
             //блокировка выполнения посл.задания, чтобы программу можно было закрыть только пользователем
             await Task.Delay(-1);
         }
 
+        public string ReadFiles()
+        {
+            StreamReader reader = new StreamReader("config.txt");
+            while (!reader.EndOfStream)
+            {
+                if (reader.ReadLine() == "token:") break;
+            }
+            string token = reader.ReadLine();
+
+            return token;
+        }
         public Task DiscordLog(LogMessage arg)
         {
             Console.WriteLine(arg);
@@ -79,7 +94,7 @@ namespace CatBot
 
             int argPos = 0;
 
-            if (message.HasStringPrefix("-", ref argPos))
+            if (message.HasStringPrefix(DataConstants.Prefix, ref argPos))
             {
                 var result = await commands.ExecuteAsync(context, argPos, services);
                 if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);

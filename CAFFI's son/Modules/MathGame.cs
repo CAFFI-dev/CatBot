@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Threading;
 namespace CatBot.Modules
 {
+    /// <summary>
+    /// Неработающий класс, скоро переделаю под библиотеку ;)
+    /// </summary>
     class MathGame
     {
         //public static bool gameIsActive;
