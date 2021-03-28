@@ -1,0 +1,4 @@
+token:
+NzU5Mjg2MTI5NTgwMTc5NDg3.X27SUA.8hzyToBfO27B1Et-MmvdvH27joA
+databaseStr:
+server=localhost;user=root;database=discord_bot;password=0000;port=3306;

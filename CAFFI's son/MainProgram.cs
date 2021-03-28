@@ -57,7 +57,7 @@ namespace CatBot
                 return Task.CompletedTask;
             };
             //удалить - не работает
-            await CatBot.Database.DBConnection.InitializeComponent().ConfigureAwait(true);
+            //await CatBot.Database.DBConnection.InitializeComponent().ConfigureAwait(true);
 
             //блокировка выполнения посл.задания, чтобы программу можно было закрыть только пользователем
             await Task.Delay(-1);

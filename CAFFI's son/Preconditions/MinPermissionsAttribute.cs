@@ -15,7 +15,7 @@ namespace CatBot.Preconditions
     {
         private readonly PermissionLevel _level;
 
-        public MinPermissionsAttribute(PermissionLevel level)
+        public MinPermissionsAttribute(PermissionLevel level, string ErrorMessage = null)
         {
             _level = level;
         }

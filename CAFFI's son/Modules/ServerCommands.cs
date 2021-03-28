@@ -123,6 +123,12 @@ namespace CatBot.Modules
                 field.Value = DataConstants.Version;
             });
 
+            _embed.AddField(field =>
+            {
+                field.Name = "**АлансГан гей? : **";
+                field.Value = DataConstants.isAlansgunGay;
+            });
+
             Embed embed = _embed.Build();
 
             await ReplyAsync(embed: embed);

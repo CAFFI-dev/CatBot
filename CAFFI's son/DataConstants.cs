@@ -12,6 +12,8 @@ namespace CatBot
 
         public const ulong OwnerId = 368702520937283584;
 
-        public const string Version = "v1.1.2-alpha.2";
+        public const string Version = "v1.2.2-alpha.2";
+
+        public const bool isAlansgunGay = true;
     }
 }
